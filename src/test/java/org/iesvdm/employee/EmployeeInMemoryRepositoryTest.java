@@ -2,6 +2,10 @@ package org.iesvdm.employee;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +40,24 @@ public class EmployeeInMemoryRepositoryTest {
 	 */
 	@Test
 	public void testEmployeeRepositoryFindAll() {
+		// Crea una lista de empleados
+		List<Employee> employees = new ArrayList<>();
+		// Crea dos empleados diferentes
+		Employee employee1 = new Employee("1", 1000);
+		Employee employee2 = new Employee("2", 2000);
+		// Añade los empleados a la lista
+		employees.add(employee1);
+		employees.add(employee2);
 
+		// Crea un objeto EmployeeRepository
+		EmployeeRepository employeeRepository = new EmployeeInMemoryRepository(employees);
+
+		// Llama al método findAll de EmployeeRepository
+		List<Employee> foundEmployees = employeeRepository.findAll();
+
+		// Comprueba que la lista devuelta contiene los empleados añadidos
+		assertTrue(foundEmployees.contains(employee1));
+		assertTrue(foundEmployees.contains(employee2));
 	}
 
 	/**
@@ -47,7 +68,21 @@ public class EmployeeInMemoryRepositoryTest {
 	 */
 	@Test
 	public void testEmployeeRepositorySaveNewEmployee() {
+		// Crea una lista de empleados
+		List<Employee> employees = new ArrayList<>();
 
+		// Crea un objeto EmployeeRepository
+		EmployeeRepository employeeRepository = new EmployeeInMemoryRepository(employees);
+
+		// Crea un nuevo empleado
+		Employee newEmployee = new Employee("3", 3000);
+
+		// Salva el nuevo empleado utilizando el método save de EmployeeRepository
+		employeeRepository.save(newEmployee);
+
+		// Verifica que la colección de empleados ahora contiene solo este nuevo empleado
+		assertEquals(1, employees.size());
+		assertTrue(employees.contains(newEmployee));
 	}
 
 	/**
@@ -61,6 +96,29 @@ public class EmployeeInMemoryRepositoryTest {
 	 */
 	@Test
 	public void testEmployeeRepositorySaveExistingEmployee() {
+		//Crea una lista de empleados
+		List<Employee> employees = new ArrayList<>();
 
+		// Crea dos empleados diferentes
+		Employee employee1 = new Employee("1", 1000);
+		Employee employee2 = new Employee("2", 2000);
+		// Añade los empleados a la lista
+		employees.add(employee1);
+		employees.add(employee2);
+
+		// Crea un objeto EmployeeRepository
+		EmployeeRepository employeeRepository = new EmployeeInMemoryRepository(employees);
+
+		// Modifica los empleados existentes
+		Employee modifiedEmployee1 = new Employee("1", 1500); // Cambia el salario de employee1
+		Employee modifiedEmployee2 = new Employee("2", 2500); // Cambia el salario de employee2
+
+		// Salva los empleados modificados utilizando el método save de EmployeeRepository
+		employeeRepository.save(modifiedEmployee1);
+		employeeRepository.save(modifiedEmployee2);
+
+		// Verifica que la colección de empleados ahora contiene los empleados modificados
+		assertTrue(employees.contains(modifiedEmployee1));
+		assertTrue(employees.contains(modifiedEmployee2));
 	}
 }

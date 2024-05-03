@@ -39,5 +39,4 @@ public class Employee {
 	public String toString() {
 		return "Employee [id=" + id + ", salary=" + salary + "]";
 	}
-
 }

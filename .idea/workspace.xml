@@ -10,6 +10,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5c399beb-7381-4adb-ab43-564baa14b56b" name="Changes" comment="Actualizaciones a la teoría de mockito">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/iesvdm/employee/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/iesvdm/employee/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/iesvdm/employee/EmployeeInMemoryRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/iesvdm/employee/EmployeeInMemoryRepositoryTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/iesvdm/employee/EmployeeManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/iesvdm/employee/EmployeeManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,6 +27,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -41,15 +48,31 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.EmployeeInMemoryRepositoryTest.executor": "Run",
+    "JUnit.EmployeeInMemoryRepositoryTest.testEmployeeRepositoryFindAll.executor": "Run",
+    "JUnit.EmployeeInMemoryRepositoryTest.testEmployeeRepositorySaveExistingEmployee.executor": "Run",
+    "JUnit.EmployeeInMemoryRepositoryTest.testEmployeeRepositorySaveNewEmployee.executor": "Run",
+    "JUnit.EmployeeManagerTest.executor": "Run",
+    "JUnit.EmployeeManagerTest.testArgumentMatcherExample.executor": "Run",
+    "JUnit.EmployeeManagerTest.testEmployeeSetPaidIsCalledAfterPaying.executor": "Run",
+    "JUnit.EmployeeManagerTest.testExampleOfArgumentCaptor.executor": "Run",
+    "JUnit.EmployeeManagerTest.testExampleOfInOrderWithTwoMocks.executor": "Run",
+    "JUnit.EmployeeManagerTest.testOtherEmployeesArePaidWhenBankServiceThrowsException.executor": "Run",
+    "JUnit.EmployeeManagerTest.testPayEmployeesReturnOneWhenOneEmployeeIsPresentAndBankServicePayPaysThatEmployee.executor": "Run",
+    "JUnit.EmployeeManagerTest.testPayEmployeesWhenBankServiceThrowsException.executor": "Run",
+    "JUnit.EmployeeManagerTest.testPayEmployeesWhenSeveralEmployeeArePresent.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/usuario/IdeaProjects/proyecto_mockito/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -66,82 +89,81 @@
       <recent name="org.iesvdm.dominio" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ArgumentMatcherTest.anyArgumentTest">
-    <configuration name="ArgumentMatcherTest.anyAndAdditionalArgumentMatchersTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.EmployeeManagerTest.testArgumentMatcherExample">
+    <configuration name="EmployeeManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto_mockito" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.iesvdm.dominio.*" />
+          <option name="PATTERN" value="org.iesvdm.employee.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.iesvdm.dominio" />
-      <option name="MAIN_CLASS_NAME" value="org.iesvdm.dominio.ArgumentMatcherTest" />
-      <option name="METHOD_NAME" value="anyAndAdditionalArgumentMatchersTest" />
+      <option name="PACKAGE_NAME" value="org.iesvdm.employee" />
+      <option name="MAIN_CLASS_NAME" value="org.iesvdm.employee.EmployeeManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EmployeeManagerTest.testArgumentMatcherExample" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proyecto_mockito" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.iesvdm.employee.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.iesvdm.employee" />
+      <option name="MAIN_CLASS_NAME" value="org.iesvdm.employee.EmployeeManagerTest" />
+      <option name="METHOD_NAME" value="testArgumentMatcherExample" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArgumentMatcherTest.anyArgumentTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EmployeeManagerTest.testEmployeeSetPaidIsCalledAfterPaying" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto_mockito" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.iesvdm.dominio.*" />
+          <option name="PATTERN" value="org.iesvdm.employee.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.iesvdm.dominio" />
-      <option name="MAIN_CLASS_NAME" value="org.iesvdm.dominio.ArgumentMatcherTest" />
-      <option name="METHOD_NAME" value="anyArgumentTest" />
+      <option name="PACKAGE_NAME" value="org.iesvdm.employee" />
+      <option name="MAIN_CLASS_NAME" value="org.iesvdm.employee.EmployeeManagerTest" />
+      <option name="METHOD_NAME" value="testEmployeeSetPaidIsCalledAfterPaying" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MockMethodsTest.whenMockMethodCallIsConfiguredToCallTheRealMethod_thenRealMethodIsCalled" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EmployeeManagerTest.testExampleOfInOrderWithTwoMocks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto_mockito" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.iesvdm.dominio.*" />
+          <option name="PATTERN" value="org.iesvdm.employee.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.iesvdm.dominio" />
-      <option name="MAIN_CLASS_NAME" value="org.iesvdm.dominio.MockMethodsTest" />
-      <option name="METHOD_NAME" value="whenMockMethodCallIsConfiguredToCallTheRealMethod_thenRealMethodIsCalled" />
+      <option name="PACKAGE_NAME" value="org.iesvdm.employee" />
+      <option name="MAIN_CLASS_NAME" value="org.iesvdm.employee.EmployeeManagerTest" />
+      <option name="METHOD_NAME" value="testExampleOfInOrderWithTwoMocks" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MockVsSpyTest.whenThenReturn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EmployeeManagerTest.testOtherEmployeesArePaidWhenBankServiceThrowsException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proyecto_mockito" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.iesvdm.dominio.*" />
+          <option name="PATTERN" value="org.iesvdm.employee.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="org.iesvdm.dominio" />
-      <option name="MAIN_CLASS_NAME" value="org.iesvdm.dominio.MockVsSpyTest" />
-      <option name="METHOD_NAME" value="whenThenReturn" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VerifyTest.givenInteractionsInOrder_whenVerifyingOrderOfInteractions_thenCorrect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="proyecto_mockito" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.iesvdm.dominio.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.iesvdm.dominio" />
-      <option name="MAIN_CLASS_NAME" value="org.iesvdm.dominio.VerifyTest" />
-      <option name="METHOD_NAME" value="givenInteractionsInOrder_whenVerifyingOrderOfInteractions_thenCorrect" />
+      <option name="PACKAGE_NAME" value="org.iesvdm.employee" />
+      <option name="MAIN_CLASS_NAME" value="org.iesvdm.employee.EmployeeManagerTest" />
+      <option name="METHOD_NAME" value="testOtherEmployeesArePaidWhenBankServiceThrowsException" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -149,13 +171,20 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ArgumentMatcherTest.anyArgumentTest" />
-        <item itemvalue="JUnit.ArgumentMatcherTest.anyAndAdditionalArgumentMatchersTest" />
-        <item itemvalue="JUnit.VerifyTest.givenInteractionsInOrder_whenVerifyingOrderOfInteractions_thenCorrect" />
-        <item itemvalue="JUnit.MockMethodsTest.whenMockMethodCallIsConfiguredToCallTheRealMethod_thenRealMethodIsCalled" />
-        <item itemvalue="JUnit.MockVsSpyTest.whenThenReturn" />
+        <item itemvalue="JUnit.EmployeeManagerTest.testOtherEmployeesArePaidWhenBankServiceThrowsException" />
+        <item itemvalue="JUnit.EmployeeManagerTest.testExampleOfInOrderWithTwoMocks" />
+        <item itemvalue="JUnit.EmployeeManagerTest.testEmployeeSetPaidIsCalledAfterPaying" />
+        <item itemvalue="JUnit.EmployeeManagerTest.testArgumentMatcherExample" />
+        <item itemvalue="JUnit.EmployeeManagerTest" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-78a6f59c" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -171,6 +200,9 @@
       <workItem from="1712905273657" duration="2892000" />
       <workItem from="1712940548762" duration="12792000" />
       <workItem from="1713177366619" duration="8742000" />
+      <workItem from="1713268542206" duration="468000" />
+      <workItem from="1714372136360" duration="115000" />
+      <workItem from="1714717642406" duration="4833000" />
     </task>
     <task id="LOCAL-00001" summary="inicial">
       <option name="closed" value="true" />

@@ -2,18 +2,19 @@ package org.iesvdm.employee;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 
+import org.assertj.core.api.AssertJProxySetup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.mockito.*;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class EmployeeManagerTest {
 
@@ -56,7 +57,16 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testPayEmployeesReturnZeroWhenNoEmployeesArePresent() {
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva una colección vacía
+		when(employeeRepository.findAll()).thenReturn(Collections.emptyList());
 
+		// Llama al método payEmployees del objeto employeeManager
+		int payments = employeeManager.payEmployees();
+
+		// Verifica que no se ha pagado a ningún empleado
+		assertEquals(0, payments);
+		// Verifica que no se haya llamado a bankService.pay
+		verify(bankService, never()).pay(anyString(), anyDouble());
 	}
 
 	/**
@@ -71,7 +81,23 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testPayEmployeesReturnOneWhenOneEmployeeIsPresentAndBankServicePayPaysThatEmployee() {
+		// Crea un empleado para simular que está presente en el repositorio
+		Employee employee = new Employee("3", 3000);
+		List<Employee> employees = Arrays.asList(employee);
 
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva la lista con el empleado
+		when(employeeRepository.findAll()).thenReturn(employees);
+
+		// Llama al método payEmployees del objeto employeeManager
+		int payments = employeeManager.payEmployees();
+
+		// Verifica que se ha pagado a un empleado
+		assertEquals(1, payments);
+
+		// Verifica que se haya llamado a bankService.pay con los datos correctos del empleado
+		verify(bankService, times(1)).pay(idCaptor.capture(), amountCaptor.capture());
+		assertEquals(employee.getId(), idCaptor.getValue());
+		assertEquals(employee.getSalary(), amountCaptor.getValue(), 0.01);
 	}
 
 
@@ -88,6 +114,33 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testPayEmployeesWhenSeveralEmployeeArePresent() {
+		// Crea una lista con dos empleados diferentes
+		Employee employee1 = new Employee("3", 3000);
+		Employee employee2 = new Employee("4", 4000);
+		List<Employee> employees = Arrays.asList(employee1, employee2);
+
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva la lista con los dos empleados
+		when(employeeRepository.findAll()).thenReturn(employees);
+
+		// Llama al método payEmployees del objeto employeeManager
+		int payments = employeeManager.payEmployees();
+
+		// Verifica que se han pagado a dos empleados
+		assertEquals(2, payments);
+
+		// Verifica que se hayan llamado a bankService.pay dos veces con los datos correctos de los empleados
+		verify(bankService, times(2)).pay(idCaptor.capture(), amountCaptor.capture());
+		List<String> capturedIds = idCaptor.getAllValues();
+		List<Double> capturedAmounts = amountCaptor.getAllValues();
+		assertEquals(2, capturedIds.size());
+		assertEquals(2, capturedAmounts.size());
+		assertEquals(employee1.getId(), capturedIds.get(0));
+		assertEquals(employee1.getSalary(), capturedAmounts.get(0), 0.01);
+		assertEquals(employee2.getId(), capturedIds.get(1));
+		assertEquals(employee2.getSalary(), capturedAmounts.get(1), 0.01);
+
+		// Verifica que no hay más interacciones con el mock de bankService
+		verifyNoMoreInteractions(bankService);
 
 	}
 
@@ -116,7 +169,24 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testExampleOfInOrderWithTwoMocks() {
+		// Crea una lista con dos empleados diferentes
+		Employee employee1 = new Employee("3", 3000);
+		Employee employee2 = new Employee("4", 4000);
+		List<Employee> employees = Arrays.asList(employee1, employee2);
 
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva la lista con los dos empleados
+		when(employeeRepository.findAll()).thenReturn(employees);
+
+		// Llama al método payEmployees del objeto employeeManager
+		employeeManager.payEmployees();
+
+		// Verifica que se hayan llamado a bankService.pay dos veces con los datos correctos de los empleados, en orden
+		InOrder inOrder = inOrder(bankService);
+		inOrder.verify(bankService).pay(employee1.getId(), employee1.getSalary());
+		inOrder.verify(bankService).pay(employee2.getId(), employee2.getSalary());
+
+		// Verifica que no hay más interacciones con el mock de bankService
+		verifyNoMoreInteractions(bankService);
 	}
 
 
@@ -135,7 +205,34 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testExampleOfArgumentCaptor() {
+		// Crea una lista con dos empleados diferentes
+		Employee employee1 = new Employee("3", 3000);
+		Employee employee2 = new Employee("4", 4000);
+		List<Employee> employees = Arrays.asList(employee1, employee2);
 
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva la lista con los dos empleados
+		when(employeeRepository.findAll()).thenReturn(employees);
+
+		// Llama al método payEmployees del objeto employeeManager
+		employeeManager.payEmployees();
+
+		// Verifica que se hayan llamado a bankService.pay dos veces con los datos correctos de los empleados
+		verify(bankService, times(2)).pay(idCaptor.capture(), amountCaptor.capture());
+
+		// Obtiene todos los valores capturados por los captors
+		List<String> capturedIds = idCaptor.getAllValues();
+		List<Double> capturedAmounts = amountCaptor.getAllValues();
+
+		// Comprueba los valores capturados
+		assertEquals(2, capturedIds.size());
+		assertEquals(2, capturedAmounts.size());
+		assertEquals("3", capturedIds.get(0));
+		assertEquals(3000.0, capturedAmounts.get(0), 0.01);
+		assertEquals("4", capturedIds.get(1));
+		assertEquals(4000.0, capturedAmounts.get(1), 0.01);
+
+		// Verifica que no hay más interacciones con el mock de bankService
+		verifyNoMoreInteractions(bankService);
 	}
 
 	/**
@@ -149,7 +246,19 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testEmployeeSetPaidIsCalledAfterPaying() {
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva una lista con el Employee toBePaid
+		when(employeeRepository.findAll()).thenReturn(Arrays.asList(toBePaid));
 
+		// Llama al método payEmployees del objeto employeeManager
+		employeeManager.payEmployees();
+
+		// Verifica que se haya pagado solo a un empleado
+		verify(bankService, times(1)).pay(anyString(), anyDouble());
+
+		// Verifica que se haya llamado a toBePaid.setPaid(true) después de pagar al empleado
+		InOrder inOrder = inOrder(bankService, toBePaid);
+		inOrder.verify(bankService).pay(anyString(), anyDouble()); // Utiliza matchers para todos los argumentos
+		inOrder.verify(toBePaid).setPaid(true);
 	}
 
 
@@ -167,7 +276,20 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testPayEmployeesWhenBankServiceThrowsException() {
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva una lista con notToBePaid
+		when(employeeRepository.findAll()).thenReturn(Arrays.asList(notToBePaid));
 
+		// Crea un stub doThrow-when para bankService.pay con ArgumentMatcher any como entradas para el método pay
+		doThrow(new RuntimeException()).when(bankService).pay(anyString(), anyDouble());
+
+		// Llama al método payEmployees del objeto employeeManager
+		int payments = employeeManager.payEmployees();
+
+		// Verifica que no se haya pagado a ningún empleado
+		assertEquals(0, payments);
+
+		// Verifica que se haya llamado a setPaid(false) en el empleado notToBePaid
+		verify(notToBePaid).setPaid(false);
 	}
 
 	/**
@@ -185,6 +307,29 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testOtherEmployeesArePaidWhenBankServiceThrowsException() {
+		// Crea una lista con dos empleados diferentes
+		Employee employee1 = mock(Employee.class);
+		Employee employee2 = mock(Employee.class);
+		List<Employee> employees = Arrays.asList(employee1, employee2, notToBePaid);
+
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva la lista con los empleados
+		when(employeeRepository.findAll()).thenReturn(employees);
+
+		// Crea un stub doThrow-when para bankService.pay con ArgumentMatcher any como entradas para el método pay
+		doThrow(new RuntimeException()).when(bankService).pay(anyString(), anyDouble());
+
+		// Llama al método payEmployees del objeto employeeManager
+		employeeManager.payEmployees();
+
+		// Verifica que notToBePaid no se haya pagado
+		verify(notToBePaid).setPaid(false);
+
+		// Verifica que los otros empleados se hayan pagado correctamente
+		for (Employee employee : employees) {
+			if (employee != notToBePaid) {
+				verify(employee).setPaid(true);
+			}
+		}
 	}
 
 
@@ -204,7 +349,22 @@ public class EmployeeManagerTest {
 	 */
 	@Test
 	public void testArgumentMatcherExample() {
+		// Crea una lista con dos empleados diferentes
+		List<Employee> employees = Arrays.asList(notToBePaid, toBePaid);
 
+		// Crea un stub when-thenReturn para employeeRepository.findAll que devuelva la lista con los empleados
+		when(employeeRepository.findAll()).thenReturn(employees);
+
+		// Crea un stub con encadenamiento para 2 llamadas doThrow-when en bankService.pay
+		// La primera invocación lanza una RuntimeException para notToBePaid
+		// La segunda invocación no hace nada para toBePaid
+		doThrow(new RuntimeException()).doNothing().when(bankService).pay(argThat(s -> s.equals("1")), anyDouble());
+
+		//Creamos un Assert
+		assertThat(employeeManager.payEmployees()).isEqualTo(1);
+
+		// Verifica que notToBePaid no se haya pagado y que toBePaid sí
+		verify(notToBePaid).setPaid(false);
+		verify(toBePaid).setPaid(true);
 	}
-
 }
